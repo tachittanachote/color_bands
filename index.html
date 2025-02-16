@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>วงล้อ “การอ่านแถบสีตัวต้านทาน”</title>
+    <script type="text/javascript" src="Winwheel.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .indicator {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            position: relative;
+        }
+
+        .indicator-triangle {
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            width: 0;
+            height: 0;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-bottom: 20px solid red;
+            transform: rotate(180deg);
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>วงล้อ “การอ่านแถบสีตัวต้านทาน”</h1>
+    <div class="indicator">
+        <div class="indicator-triangle"></div>
+    </div>
+    <canvas id="wheelCanvas" width="600" height="600"></canvas>
+    <br>
+    <button onclick="startSpin()" id="spinButton">หมุนวงล้อ</button>
+
+    <script>
+        let wheelCanvas = document.getElementById('wheelCanvas');
+
+        // Create 4 wheels with different segment counts
+        let wheels = [
+            new Winwheel({
+                'canvasId': 'wheelCanvas',
+                'numSegments': 9,
+                'outerRadius': 100,
+                'innerRadius': 5,
+                'textFontSize': 12,
+                'textMargin': 0,
+                'textAlignment': 'center',
+                'textFontFamily': 'monospace',
+                'textFillStyle': 'white',
+                'segments': [
+                    { 'fillStyle': '#1C1B1C', 'text': '±20%' },
+                    { 'fillStyle': '#C86B40', 'text': '±1%' },
+                    { 'fillStyle': '#E94249', 'text': '±2%' },
+                    { 'fillStyle': '#E78B27', 'text': '±0.5%' },
+                    { 'fillStyle': '#F8D50A', 'text': '±0.25%', 'textFillStyle': 'black' },
+                    { 'fillStyle': '#95B023', 'text': '±0.1%' },
+                    { 'fillStyle': '#0B52B1', 'text': '±0.05%' },
+                    { 'fillStyle': '#401F6E', 'text': '±0.5%' },
+                    { 'fillStyle': '#E5E7E6', 'text': '±10%', 'textFillStyle': 'black' }
+                ]
+            }),
+            new Winwheel({
+                'canvasId': 'wheelCanvas',
+                'numSegments': 10,
+                'outerRadius': 140,
+                'innerRadius': 75,
+                'textFillStyle': 'white',
+                'segments': [
+                    { 'fillStyle': '#1C1B1C', 'text': '100' },
+                    { 'fillStyle': '#C86B40', 'text': '101' },
+                    { 'fillStyle': '#E94249', 'text': '102' },
+                    { 'fillStyle': '#E78B27', 'text': '103' },
+                    { 'fillStyle': '#F8D50A', 'text': '104', 'textFillStyle': 'black' },
+                    { 'fillStyle': '#95B023', 'text': '105' },
+                    { 'fillStyle': '#0B52B1', 'text': '106' },
+                    { 'fillStyle': '#401F6E', 'text': '107' },
+                    { 'fillStyle': '#968C8A', 'text': '108' },
+                    { 'fillStyle': '#E5E7E6', 'textFillStyle': 'black', 'text': '109' }
+                ]
+            }),
+            new Winwheel({
+                'canvasId': 'wheelCanvas',
+                'numSegments': 10,
+                'outerRadius': 210,
+                'innerRadius': 140,
+                'textFillStyle': 'white',
+                'segments': [
+                    { 'fillStyle': '#1C1B1C', 'text': '0' },
+                    { 'fillStyle': '#C86B40', 'text': '1' },
+                    { 'fillStyle': '#E94249', 'text': '2' },
+                    { 'fillStyle': '#E78B27', 'text': '3' },
+                    { 'fillStyle': '#F8D50A', 'text': '4', 'textFillStyle': 'black' },
+                    { 'fillStyle': '#95B023', 'text': '5' },
+                    { 'fillStyle': '#0B52B1', 'text': '6' },
+                    { 'fillStyle': '#401F6E', 'text': '7' },
+                    { 'fillStyle': '#968C8A', 'text': '8' },
+                    { 'fillStyle': '#E5E7E6', 'text': '9', 'textFillStyle': 'black' }
+                ]
+            }),
+            new Winwheel({
+                'canvasId': 'wheelCanvas',
+                'numSegments': 10,
+                'outerRadius': 280,
+                'innerRadius': 210,
+                'textFillStyle': 'white',
+                'segments': [
+                    { 'fillStyle': '#1C1B1C', 'text': '0' },
+                    { 'fillStyle': '#C86B40', 'text': '1' },
+                    { 'fillStyle': '#E94249', 'text': '2' },
+                    { 'fillStyle': '#E78B27', 'text': '3' },
+                    { 'fillStyle': '#F8D50A', 'text': '4', 'textFillStyle': 'black' },
+                    { 'fillStyle': '#95B023', 'text': '5' },
+                    { 'fillStyle': '#0B52B1', 'text': '6' },
+                    { 'fillStyle': '#401F6E', 'text': '7' },
+                    { 'fillStyle': '#968C8A', 'text': '8' },
+                    { 'fillStyle': '#E5E7E6', 'textFillStyle': 'black', 'text': '9', }
+                ]
+            })
+        ];
+
+        // Draw all wheels initially
+        wheels.forEach(wheel => wheel.draw(false));
+
+        function startSpin() {
+            // disable the button
+            document.getElementById('spinButton').disabled = true;
+
+            let completedWheels = 0;
+
+            wheels.forEach((wheel, index) => {
+                // Random duration: between 3 to 6 seconds
+                let duration = 3 + Math.random() * 3;
+
+                // Random spins: between 5 to 12 full rotations
+                let spins = Math.floor(Math.random() * 8) + 5;
+
+                // Direction: Alternate with a small bias for variety
+                let direction = Math.random() > 0.6 ? 1 : -1;
+
+                // Random offset (adds unpredictability to the final stopping position)
+                let randomOffset = Math.random() * 360;
+
+                gsap.to(wheel, {
+                    rotationAngle: `+=${spins * 360 * direction + randomOffset}`,
+                    duration: duration,
+                    ease: "power4.out",  // Makes it decelerate naturally
+                    onUpdate: () => wheel.draw(false),
+                    onComplete: () => {
+                        completedWheels++;
+                        if (completedWheels === wheels.length) {
+                            alertPrize();
+                            document.getElementById('spinButton').disabled = false;
+                        }
+                    }
+                });
+            });
+        }
+
+        function alertPrize() {
+            let results = wheels.map((wheel, index) => wheel.getIndicatedSegment().text);
+        }
+
+        // initial with a random spin
+        startSpin();
+    </script>
+
+</body>
+
+</html>
