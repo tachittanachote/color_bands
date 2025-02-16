@@ -53,6 +53,38 @@
             width: 100%;
             text-align: center;
         }
+
+        #prize1 {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #prize2 {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #prize3 {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #prize4 {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .me-4 {
+            margin-right: 40px;
+        }
+
+        .ms-1 {
+            margin-left: 10px;
+        }
     </style>
 </head>
 
@@ -66,10 +98,10 @@
     <canvas id="wheelCanvas" width="600" height="600"></canvas>
     <br>
     <div id="prize">
-        <div id="prize1">ผลลัพธ์วงล้อ 1: <span>-</span></div>
-        <div id="prize2">ผลลัพธ์วงล้อ 2: <span>-</span></div>
-        <div id="prize3">ผลลัพธ์วงล้อ 3: <span>-</span></div>
-        <div id="prize4">ผลลัพธ์วงล้อ 4: <span>-</span></div>
+        <div id="prize1">ผลลัพธ์วงล้อ 1: <div class="ms-1 me-4">-</div> สี: <div class="ms-1 me-4" id="prize1-color">-</div></div>
+        <div id="prize2">ผลลัพธ์วงล้อ 2: <div class="ms-1 me-4">-</div> สี: <div class="ms-1 me-4" id="prize2-color">-</div></div>
+        <div id="prize3">ผลลัพธ์วงล้อ 3: <div class="ms-1 me-4">-</div> สี: <div class="ms-1 me-4" id="prize3-color">-</div></div>
+        <div id="prize4">ผลลัพธ์วงล้อ 4: <div class="ms-1 me-4">-</div> สี: <div class="ms-1 me-4" id="prize4-color">-</div></div>
     </div>
     <br>
     <button onclick="startSpin()" id="spinButton">หมุนวงล้อ</button>
@@ -198,12 +230,34 @@
         }
 
         function alertPrize() {
-            let results = wheels.map((wheel, index) => wheel.getIndicatedSegment().text);
+            let results = wheels.map(wheel => wheel.getIndicatedSegment().text);
+            let colors = wheels.map(wheel => wheel.getIndicatedSegment().fillStyle);
+            console.log(colors);
 
-            document.getElementById('prize1').querySelector('span').innerText = results[3];
-            document.getElementById('prize2').querySelector('span').innerText = results[2];
-            document.getElementById('prize3').querySelector('span').innerText = results[1];
-            document.getElementById('prize4').querySelector('span').innerText = results[0];
+            document.getElementById('prize1').querySelector('div').innerText = results[3];
+            document.getElementById('prize1-color').style.backgroundColor = colors[3];
+            document.getElementById('prize1-color').style.width = '100px';
+            document.getElementById('prize1-color').style.height = '20px';
+            document.getElementById('prize1-color').style.color = colors[3];
+
+            document.getElementById('prize2').querySelector('div').innerText = results[2];
+            document.getElementById('prize2-color').style.backgroundColor = colors[2];
+            document.getElementById('prize2-color').style.width = '100px';
+            document.getElementById('prize2-color').style.height = '20px';
+            document.getElementById('prize2-color').style.color = colors[2];
+
+            document.getElementById('prize3').querySelector('div').innerText = results[1];
+            document.getElementById('prize3-color').style.backgroundColor = colors[1];
+            document.getElementById('prize3-color').style.width = '100px';
+            document.getElementById('prize3-color').style.height = '20px';
+            document.getElementById('prize3-color').style.color = colors[1];
+
+            document.getElementById('prize4').querySelector('div').innerText = results[0];
+            document.getElementById('prize4-color').style.backgroundColor = colors[0];
+            document.getElementById('prize4-color').style.width = '100px';  
+            document.getElementById('prize4-color').style.height = '20px';
+            document.getElementById('prize4-color').style.color = colors[0];
+
         }
 
         // initial with a random spin
