@@ -64,6 +64,13 @@
     </div>
     <canvas id="wheelCanvas" width="600" height="600"></canvas>
     <br>
+    <div id="prize">
+        <div id="prize1">ผลลัพธ์วงล้อ 1: <span></span></div>
+        <div id="prize2">ผลลัพธ์วงล้อ 2: <span></span></div>
+        <div id="prize3">ผลลัพธ์วงล้อ 3: <span></span></div>
+        <div id="prize4">ผลลัพธ์วงล้อ 4: <span></span></div>
+    </div>
+    <br>
     <button onclick="startSpin()" id="spinButton">หมุนวงล้อ</button>
 
     <script>
@@ -191,6 +198,11 @@
 
         function alertPrize() {
             let results = wheels.map((wheel, index) => wheel.getIndicatedSegment().text);
+
+            document.getElementById('prize1').querySelector('span').innerText = results[0];
+            document.getElementById('prize2').querySelector('span').innerText = results[1];
+            document.getElementById('prize3').querySelector('span').innerText = results[2];
+            document.getElementById('prize4').querySelector('span').innerText = results[3];
         }
 
         // initial with a random spin
