@@ -199,10 +199,10 @@
         function alertPrize() {
             let results = wheels.map((wheel, index) => wheel.getIndicatedSegment().text);
 
-            document.getElementById('prize1').querySelector('span').innerText = results[0];
-            document.getElementById('prize2').querySelector('span').innerText = results[1];
-            document.getElementById('prize3').querySelector('span').innerText = results[2];
-            document.getElementById('prize4').querySelector('span').innerText = results[3];
+            document.getElementById('prize1').querySelector('span').innerText = results[3];
+            document.getElementById('prize2').querySelector('span').innerText = results[2];
+            document.getElementById('prize3').querySelector('span').innerText = results[1];
+            document.getElementById('prize4').querySelector('span').innerText = results[0];
         }
 
         // initial with a random spin
